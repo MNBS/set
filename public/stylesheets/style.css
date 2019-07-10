@@ -1,0 +1,79 @@
+body {
+  /* padding: 50px; */
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00b7ff;
+}
+
+i {
+  /* margin-right: 10px; */
+  margin-left: 20px;
+}
+
+.fa-ellipsis-v {
+  margin-left: 20px;
+}
+
+.export {
+  margin-left: 20px;
+}
+
+.main-content {
+  margin-top: 10px;
+}
+
+.form-inline {
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.badge {
+  margin-right: 8px;
+  background-color: #bebebe;
+}
+
+.tag {
+  color: #f8f8f8;
+}
+
+.share {
+  color: #29a0f0;
+}
+#popup_parent
+{
+  /* for blocking the input behind */
+  z-index: 1;
+  background-color: #BBBBBB;
+  opacity: 0.2;
+  width: 100%;
+  height: 100%;
+  left: 0%;
+  top: 0%;
+  position : fixed;
+  visibility: hidden;
+}
+#popup {
+  position: fixed;
+  display: block;
+  visibility: hidden;
+  background-color: lightgrey;
+  border: black solid 1pt;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  width:25vw;  
+  height:25vh;   
+  margin-left:-12.5vw;   
+  margin-top:-12.5vh;
+  padding: 0.75em;
+}
+#loading-spinner{
+  visibility: hidden;
+}
+#alert_update{
+  visibility: hidden;
+  text-align: center;
+  padding: 0px;
+}

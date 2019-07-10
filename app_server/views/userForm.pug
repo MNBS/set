@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  container
+    if user
+      form(method='POST' action=`/user/${user._id}/edit/submit`)
+        div.form-group
+          label(for='firstName') First Name:
+          input#firstName.form-control(type='text', placeholder='First Name' name='firstName', value= user.firstName)
+        div.form-group
+          label(for='lastName') Last Name:
+          input#lastName.form-control(type='text', placeholder='Last Name' name='lastName', value= user.lastName)
+        div.form-group
+          label(for='email') Email:
+          input#email.form-control(type='email', placeholder='name@ibm.com' name='email', value= user.email)
+        div.form-group
+          label(for='role') Role:
+          if sessionProfile.role == "Admin"
+            select.form-control#role(name="role")
+              each option in user.form.role
+                option(value= option)= option
+          else
+            select.form-control#role(name="role", disabled)
+              each option in user.form.role
+                option(value= option)= option
+        div.form-group
+          label(for='status') Status:
+          select#status.form-control(name="status")
+            each option in user.form.status
+              option= option
+        button.btn.btn-primary(type='submit') Submit
+    else
+      form(method='POST' action='/user/new/submit')
+        div.form-group
+          label(for='firstName') First Name:
+          input#firstName.form-control(type='text', placeholder='First Name' name='firstName')
+        div.form-group
+          label(for='lastName') Last Name:
+          input#lastName.form-control(type='text', placeholder='Last Name' name='lastName')
+        div.form-group
+          label(for='email') Email:
+          input#email.form-control(type='email', placeholder='name@ibm.com' name='email')
+        div.form-group
+          label(for='role') Role:   
+          select.form-control#role(name="role")
+            option User
+            option Admin
+        div.form-group
+          label(for='status') Status:
+          select#status.form-control(name="status")
+            option Active
+            option Disabled
+        button.btn.btn-primary(type='submit') Submit

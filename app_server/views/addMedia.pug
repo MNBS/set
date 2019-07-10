@@ -1,0 +1,128 @@
+extends layout
+
+block content
+    #popup_parent
+    #popup
+        button(onclick="closePopup()" style="float:right") x
+        label() Add Option:
+        br
+        form(action="" onsubmit="submitOptionAdd(this)")
+            input#optionform_option(type="text", name="option")
+            input#hidden_category(type="hidden", name="hidden_category")
+            input#popup_submit(type="submit" value="Add Option")
+            br
+            .spinner-border#loading-spinner(role="status")
+                span.sr-only loading...
+        div#alert_update.alert.alert-success Success
+    if media.mediaPostCount
+        form(method='POST' action='/media/new/submit')
+            .row 
+                .col-6
+                    div.form-group
+                        label(for="mediaCount") Media ID:
+                        input#mediaCount.form-control(type="text", name="mediaCount", readonly, value=media.mediaPostCount)
+                    div.form-group
+                        label(for='market') Market: 
+                        select(required, name="market").form-control
+                            each option in media.form.market
+                                option= option
+                            option(value="+" onclick="onSelectAddOption(this.parentElement.name)")="+ Add Options"
+                    div.form-group
+                        label(for='title') Title:
+                        input#title.form-control(type='text', placeholder='Title', name='title', required)
+                    div.form-group
+                        label(for='seta') Social Emminence Type: 
+                        select(name="socialEminenceType", required).form-control#seta
+                            each option in media.form.socialEminenceType
+                                option= option
+                            option(value="+" onclick="onSelectAddOption(this.parentElement.name)")="+ Add Options"
+                    div.form-group
+                        label(for='country') Country: 
+                        select(name='city', required).form-control#country
+                            each option in media.form.city
+                                option= option
+                            option(value="+" onclick="onSelectAddOption(this.parentElement.name)")="+ Add Options"
+                .col-6
+                    div.form-group
+                        label(for='bu') Business Unit: 
+                        select(name="businessUnit", required).form-control#bu
+                            each option in media.form.businessUnit
+                                option= option
+                            option(value="+" onclick="onSelectAddOption(this.parentElement.name)")="+ Add Options"
+                    div.form-group
+                        label(for='link') Link:
+                        input#link.form-control(required, type='text', placeholder='Link' name='externalLink')
+                    div.form-group
+                        label(for='status') Status: 
+                        select(name="status", required).form-control#status
+                            each option in media.form.status
+                                option= option
+                            option(value="+" onclick="onSelectAddOption(this.parentElement.name)")="+ Add Options"
+                    div.form-group
+                        label(for='date') Date:
+                        input#date.form-control(required, type='date', name='date')
+                    div.form-group
+                        label(for='contributor') Contributor:
+                        input#contributor.form-control(type='text', placeholder='Contributor' name='contributors', required)
+            button.btn.btn-primary(type='submit') Submit
+    else
+        form(method='POST' action=`/user/${media.user}/media/${media._mediaId}/edit/submit`)
+            .row 
+                .col-6
+                    div.form-group
+                        label(for="mediaCount") Media ID:
+                        input#mediaCount.form-control(type="text", name="mediaCount", readonly, value= media._mediaId)
+                    div.form-group
+                        label(for='market') Market: 
+                        select(required, name="market").form-control
+                            each option in media.form.market
+                                if option != media.market
+                                    option(value=option)= option
+                                else
+                                    option(value=option, selected)= option
+                    div.form-group
+                        label(for='title') Title:
+                        input#title.form-control(type='text', placeholder='Title', name='title', value= media.title, required)
+                    div.form-group
+                        label(for='seta') Social Emminence Type: 
+                        select(name="socialEminenceType", required).form-control#seta
+                            each option in media.form.socialEminenceType
+                                if option != media.socialEminenceType
+                                    option(value=option)= option
+                                else
+                                    option(value=option, selected)= option
+                    div.form-group
+                        label(for='country') Country: 
+                        select(name='city', required).form-control#country
+                            each option in media.form.city
+                                if option != media.city
+                                    option(value=option)= option
+                                else
+                                    option(value=option, selected)= option
+                .col-6
+                    div.form-group
+                        label(for='bu') Business Unit: 
+                        select(name="businessUnit", required).form-control#bu
+                            each option in media.form.businessUnit
+                                if option != media.businessUnit
+                                    option(value=option)= option
+                                else
+                                    option(value=option, selected)= option
+                    div.form-group
+                        label(for='link') Link:
+                        input#link.form-control(required, type='text', placeholder='Link' name='externalLink', value= media.externalLink)
+                    div.form-group
+                        label(for='status') Status: 
+                        select(name="status", required).form-control#status
+                            each option in media.form.status
+                                if option != media.status
+                                    option(value=option)= option
+                                else
+                                    option(value=option, selected)= option
+                    div.form-group
+                        label(for='date') Date:
+                        input#date.form-control(required, type='date', name='date', value= media.date)
+                    div.form-group
+                        label(for='contributor') Contributor:
+                        input#contributor.form-control(type='text', placeholder='Contributor' name='contributors', value= media.contributors, required)
+            button.btn.btn-primary(type='submit') Submit

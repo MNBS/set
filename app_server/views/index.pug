@@ -1,0 +1,73 @@
+extends layout
+
+block content
+  .row
+    .col-10
+      form(method='GET' action='/home')
+        .row
+          .col-10
+            select.form-control.form-control(name="filter")
+              option(value="Default") Default
+              optgroup(label = "Market")
+                each market in users.form.market
+                  option(value=market)=market
+              optgroup(label = "Business Unit")
+                each bu in users.form.businessUnit
+                  option(value=bu)=bu
+              optgroup(label="Country")
+                each country in users.form.city 
+                  option(value=country)=country
+              optgroup(label="Social Eminence Type")
+                each seta in users.form.socialEminenceType
+                  option(value=seta)=seta
+          .col-2
+            button.btn.btn-primary(type='submit') Filter
+    .col-2
+      a(href="/media/new", tabindex="-1",role="button", aria-disabled="true").btn.btn-primary Add
+      //- form(method="GET" action="/").form-inline
+      a(href="/csv", tabindex= "-1", role="button", aria-disabled="true").btn.btn-primary.export Export
+        //- button(type="submit").btn.btn-primary Export
+  hr
+  if result
+    if result == "success"
+      div.alert.alert-success Success
+    else if result == "failure"
+      div.alert.alert-danger Failure
+  .row.main-content
+    .col-12
+      each user in users
+        each item in user.media
+          .card
+            .card-body
+              .row
+                .col-11
+                  h5
+                    a(href=item.externalLink)= item.title
+                    a(href="/?filter=" + user.firstName) 
+                      |   -   #[small=user.firstName]
+                if user.email == sessionProfile.sessionId || sessionProfile.role == "Admin"
+                  .col-1
+                    div.dropdown
+                      button.btn(type="button" id="dropdownMenuButton" data-toggle="dropdown")
+                        i.fas.fa-ellipsis-v
+                      div.dropdown-menu
+                        a.dropdown-item(href=`/user/${user._id}/media/${item._mediaId}/edit`) Edit
+                        a.dropdown-item(href=`/user/${user._id}/media/${item._mediaId}/delete`) Delete
+              .row
+                .col-10
+                  span.badge.badge-secondary
+                    a.tag(href="/?filter=" + item.market).card-link=item.market
+                  span.badge.badge-secondary
+                    a.tag(href="/?filter=" +item.city).card-link=item.city
+                  span.badge.badge-secondary
+                    a.tag(href="/?filter=" + item.businessUnit).card-link=item.businessUnit
+                  span.badge.badge-secondary
+                    a.tag(href="/?filter=" + item.socialEminenceType).card-link=item.socialEminenceType
+                .col-2
+                  a.share(href=`https://twitter.com/intent/tweet?url=${item.externalLink}`, target='_blank').twitter-share-button
+                    i.fab.fa-twitter
+                  a.share(href=`https://www.facebook.com/sharer/sharer?u=${item.externalLink}&link=${item.externalLink}`, target='_blank').twitter-share-button
+                    i.fab.fa-facebook
+                  a.share(href=`https://linkedin.com/shareArticle?mini=true&url=${item.externalLink}`, target='_blank').twitter-share-button
+                    i.fab.fa-linkedin
+  
