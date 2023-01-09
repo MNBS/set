@@ -15,7 +15,7 @@
     "express": "~4.16.1",
     "express-session": "^1.16.2",
     "http-errors": "~1.6.3",
-    "ibmcloud-appid": "^6.0.0",
+    "ibmcloud-appid": "^6.3.1",
     "json2xls": "^0.1.2",
     "morgan": "~1.9.1",
     "passport": "^0.4.0",
